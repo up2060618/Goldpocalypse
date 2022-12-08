@@ -42,9 +42,9 @@ public class AlertState : PlayerState
 
 public class ChaseState : PlayerState
 {
-    private float speed = 4.0f;
-    // float maxDist = 8.0f;ra
-    private float minDist = 4.0f;
+    private float speed = 4.5f;
+    // float maxDist = 8.0f;
+    private float minDist = 6.0f;
     public override void movement(gameStates thisObject)
     {
        
@@ -60,8 +60,11 @@ public class ChaseState : PlayerState
             IEnumerator ExecuteAfterTime(float time)
             {
                 yield return new WaitForSeconds(time);
-
-                thisObject.currentState = new PatrollingState();
+                if (Vector2.Distance(thisObject.transform.position, thisObject.player.transform.position) >= minDist)
+                {
+                    thisObject.currentState = new PatrollingState();
+                }
+                
             }
             
         }

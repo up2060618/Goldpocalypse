@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class raycasting : MonoBehaviour
 {
+    public AudioSource gunshotSource;
+    public AudioClip gunshot;
     private Animation anim;
     public GameObject shootPoint;
     public GameObject Crosshair;
@@ -47,6 +49,7 @@ public class raycasting : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && shootable)
         {
+            gunshotSource.PlayOneShot(gunshot);
             RaycastHit2D rayshoot = Physics2D.Raycast(playerPos, distanceBetween, distanceBetween.magnitude, enemyLayer);
             GameObject hitObj = rayshoot.collider.gameObject;
             Debug.Log(hitObj);

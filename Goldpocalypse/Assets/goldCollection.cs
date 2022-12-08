@@ -5,17 +5,32 @@ using UnityEngine.UI;
 
 public class goldCollection : MonoBehaviour
 {
-    
+    public AudioSource source;
+    public AudioClip goldPickup;
+    private int goldCount;
+    public Text counterText;
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Coin")
         {
             Destroy(collision.gameObject);
+            playCollectionSound();
+            goldCount++;
         }
+    }
+
+    private void Start()
+    {
+        goldCount = 0;
+        counterText.text = "Gold: " + goldCount.ToString();
     }
     private void Update()
     {
-        
+        counterText.text = "Gold: " + goldCount.ToString();
     }
 
+    void playCollectionSound()
+    {
+        source.PlayOneShot(goldPickup);
+    }
 }
