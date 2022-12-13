@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class playerMovement : MonoBehaviour
 {
-    private float speed = 7.0f;
+    private float speed = 10.0f;
     private Animator animator;
     bool facingRight = true;
+
+    public timeManager timeControl; 
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +48,16 @@ public class playerMovement : MonoBehaviour
             }
             pos.x -= speed * Time.deltaTime;
             animator.SetBool("isWalking", true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            timeControl.timeSlowing();
+            
+        }
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            timeControl.timeReturn();
         }
 
         transform.position = pos;

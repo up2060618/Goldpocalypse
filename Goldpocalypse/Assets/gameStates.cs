@@ -42,7 +42,7 @@ public class AlertState : PlayerState
 
 public class ChaseState : PlayerState
 {
-    private float speed = 4.5f;
+    private float speed = 8.0f;
     // float maxDist = 8.0f;
     private float minDist = 6.0f;
     public override void movement(gameStates thisObject)
@@ -79,7 +79,7 @@ public class ChaseState : PlayerState
 
 public class PatrollingState : PlayerState
 {
-    private float speed = 2.0f;
+    private float speed = 5.0f;
     private float timer = 0.0f;
     private float minDist = 4.0f;
     public override void movement(gameStates thisObject)

@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class raycasting : MonoBehaviour
 {
@@ -51,16 +53,24 @@ public class raycasting : MonoBehaviour
         {
             gunshotSource.PlayOneShot(gunshot);
             RaycastHit2D rayshoot = Physics2D.Raycast(playerPos, distanceBetween, distanceBetween.magnitude, enemyLayer);
-            GameObject hitObj = rayshoot.collider.gameObject;
-            Debug.Log(hitObj);
-            if (hitObj.tag == "Enemy")
+            GameObject hitObj = null;
+            try
             {
-                Debug.Log("hit enemy");
-                Destroy(hitObj, 0.0f);
-                Instantiate(deadState, hitObj.transform.position, hitObj.transform.rotation);
-                Instantiate(Coin, hitObj.transform.position, hitObj.transform.rotation);
+                hitObj = rayshoot.collider.gameObject;
+                if (hitObj.tag == "Enemy")
+                {
+                    Debug.Log("hit enemy");
+                    Destroy(hitObj, 0.0f);
+                    Instantiate(deadState, hitObj.transform.position, hitObj.transform.rotation);
+                    Instantiate(Coin, hitObj.transform.position, hitObj.transform.rotation);
 
+                }
             }
+            catch (NullReferenceException e)
+            {
+                Debug.Log("miss"); 
+            }
+
         }
     }
 }
