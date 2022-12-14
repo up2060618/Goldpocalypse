@@ -16,7 +16,7 @@ public class AlertState : PlayerState
 {
     private int randomNumber;
     private int detectionNumber = 2;
-    private float timeInterval = 1.0f;
+    private float timeInterval = 0.5f;
     public float period = 0.0f;
     public override void handleInput(gameStates thisObject)
     {
@@ -79,21 +79,20 @@ public class ChaseState : PlayerState
 
 public class PatrollingState : PlayerState
 {
-    private float speed = 5.0f;
+    private float speed = 7.0f;
     private float timer = 0.0f;
     private float minDist = 4.0f;
     public override void movement(gameStates thisObject)
     {
+
         timer += Time.deltaTime;
-        if (timer == 5)
+        if (timer >= 5)
         {
-            Vector2 position = new Vector2(Random.Range(-40, 40), Random.Range(-25, 20));
-            thisObject.transform.position = Vector2.MoveTowards(thisObject.transform.position, position, speed * Time.deltaTime);
+            thisObject.target = new Vector2(Random.Range(-40, 40), Random.Range(-25, 20));
+            timer -= 5;
         }
-        if (timer == 100.0f)
-        {
-            timer = 0.0f;
-        }
+        
+        thisObject.transform.position = Vector2.MoveTowards(thisObject.transform.position, thisObject.target, speed * Time.deltaTime);
         if (Vector2.Distance(thisObject.transform.position, thisObject.player.transform.position) <= minDist)
         {
             thisObject.currentState = new AlertState();
@@ -112,10 +111,11 @@ public class gameStates : MonoBehaviour
     public string enemyName;
     public GameObject player;
     public PlayerState currentState;
-
+    public Vector2 target;
     // Use this for initialization
     void Start()
     {
+        target = new Vector2(Random.Range(-40, 40), Random.Range(-25, 20));
         currentState = new PatrollingState();
         InvokeRepeating("Report", 0.0f, 3.0f);
     }

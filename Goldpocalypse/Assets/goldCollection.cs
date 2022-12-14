@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class goldCollection : MonoBehaviour
 {
@@ -27,6 +28,11 @@ public class goldCollection : MonoBehaviour
     private void Update()
     {
         counterText.text = "Gold: " + goldCount.ToString();
+        if (goldCount == 51)
+        {
+            SceneManager.LoadScene("YouWin");
+            Cursor.visible = true;
+        }
     }
 
     void playCollectionSound()

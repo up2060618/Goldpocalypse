@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1502889921843972810}
   m_Layer: 7
   m_Name: Green Slime
-  m_TagString: Enemy
+  m_TagString: EnemyGreen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,3 +153,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: 
   player: {fileID: 0}
+  target: {x: 0, y: 0}

@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - Coin
+  - EnemyBlue
+  - EnemyGreen
+  - EnemyRed
   layers:
   - Default
   - TransparentFX

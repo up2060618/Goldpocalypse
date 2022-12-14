@@ -12,7 +12,9 @@ public class raycasting : MonoBehaviour
     public GameObject shootPoint;
     public GameObject Crosshair;
     public GameObject Coin;
-    public GameObject deadState;
+    public GameObject deadStateRed;
+    public GameObject deadStateGreen;
+    public GameObject deadStateBlue;
     private int obstacleLayer;
     private int enemyLayer;
     private bool shootable = true;
@@ -57,11 +59,27 @@ public class raycasting : MonoBehaviour
             try
             {
                 hitObj = rayshoot.collider.gameObject;
-                if (hitObj.tag == "Enemy")
+                if (hitObj.tag == "EnemyRed")
                 {
                     Debug.Log("hit enemy");
                     Destroy(hitObj, 0.0f);
-                    Instantiate(deadState, hitObj.transform.position, hitObj.transform.rotation);
+                    Instantiate(deadStateRed, hitObj.transform.position, hitObj.transform.rotation);
+                    Instantiate(Coin, hitObj.transform.position, hitObj.transform.rotation);
+
+                }
+                if (hitObj.tag == "EnemyBlue")
+                {
+                    Debug.Log("hit enemy");
+                    Destroy(hitObj, 0.0f);
+                    Instantiate(deadStateBlue, hitObj.transform.position, hitObj.transform.rotation);
+                    Instantiate(Coin, hitObj.transform.position, hitObj.transform.rotation);
+
+                }
+                if (hitObj.tag == "EnemyGreen")
+                {
+                    Debug.Log("hit enemy");
+                    Destroy(hitObj, 0.0f);
+                    Instantiate(deadStateGreen, hitObj.transform.position, hitObj.transform.rotation);
                     Instantiate(Coin, hitObj.transform.position, hitObj.transform.rotation);
 
                 }

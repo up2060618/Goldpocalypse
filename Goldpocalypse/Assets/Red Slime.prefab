@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6411962272303899146}
   m_Layer: 7
   m_Name: Red Slime
-  m_TagString: Enemy
+  m_TagString: EnemyRed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Red Slime
   player: {fileID: 0}
+  target: {x: 0, y: 0}
 --- !u!60 &6411962272303899146
 PolygonCollider2D:
   m_ObjectHideFlags: 0

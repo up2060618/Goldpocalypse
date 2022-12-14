@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class playerMovement : MonoBehaviour
 {
+    public GameObject deadState;
+    public GameObject Coin;
     private float speed = 10.0f;
     private Animator animator;
     bool facingRight = true;
+    public float currentHealth;
     public float currentFocus;
     public float maxFocus = 100;
+    public float maxHealth = 100;
+    public healthBar Healthbar;
     public focusBar Focusbar;
     public Image focusBarFill;
     public timeManager timeControl;
@@ -19,7 +25,9 @@ public class playerMovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         currentFocus = maxFocus;
+        currentHealth = maxHealth;
         Focusbar.setMaxFocus(maxFocus);
+        Healthbar.setMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -59,7 +67,7 @@ public class playerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space) && currentFocus >= 0f && canFocus)
         {
             timeControl.timeSlowing();
-            currentFocus -= 500 * Time.deltaTime; // time.deltatime used to make sure systems with low fps aren't penalised
+            currentFocus -= 700 * Time.deltaTime; // time.deltatime used to make sure systems with low fps aren't penalised
             Focusbar.setFocus(currentFocus);
             
         }
@@ -83,7 +91,6 @@ public class playerMovement : MonoBehaviour
         {
             canFocus = true;
             focusBarFill.color = Color.yellow;
-            Debug.Log("killme");
         }
        
         if (Input.GetKeyUp(KeyCode.Space))
@@ -92,6 +99,8 @@ public class playerMovement : MonoBehaviour
         }
 
         transform.position = pos;
+       
+        
     }
 
     void Flip()
@@ -101,5 +110,23 @@ public class playerMovement : MonoBehaviour
         gameObject.transform.localScale = currentScale;
 
         facingRight = !facingRight;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "EnemyBlue" || collision.gameObject.tag == "EnemyRed" || collision.gameObject.tag == "EnemyGreen")
+        {
+            currentHealth -= 10;
+            Healthbar.setHealth(currentHealth);
+            if (currentHealth <= 0)
+            {
+                Debug.Log("You're dead");
+                SceneManager.LoadScene("GameOver");
+                Cursor.visible = true;
+            }
+            Destroy(collision.gameObject);
+            Instantiate(deadState, gameObject.transform.position, gameObject.transform.rotation);
+            Instantiate(Coin, gameObject.transform.position, gameObject.transform.rotation);
+        }
     }
 }
