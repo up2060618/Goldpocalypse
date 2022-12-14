@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5365139104766957645}
   - component: {fileID: 2953235034183163647}
   m_Layer: 0
-  m_Name: ww
+  m_Name: crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
