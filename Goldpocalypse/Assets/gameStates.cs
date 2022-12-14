@@ -84,18 +84,16 @@ public class PatrollingState : PlayerState
     private float minDist = 4.0f;
     public override void movement(gameStates thisObject)
     {
-        Vector2 enemyPos = thisObject.transform.position;
         timer += Time.deltaTime;
-        if (timer % 10 > 5)
+        if (timer == 5)
         {
-            enemyPos.x -= speed * Time.deltaTime;
+            Vector2 position = new Vector2(Random.Range(-40, 40), Random.Range(-25, 20));
+            thisObject.transform.position = Vector2.MoveTowards(thisObject.transform.position, position, speed * Time.deltaTime);
         }
-        else
+        if (timer == 100.0f)
         {
-            enemyPos.x += speed * Time.deltaTime;
+            timer = 0.0f;
         }
-        thisObject.transform.position = enemyPos;
-
         if (Vector2.Distance(thisObject.transform.position, thisObject.player.transform.position) <= minDist)
         {
             thisObject.currentState = new AlertState();
